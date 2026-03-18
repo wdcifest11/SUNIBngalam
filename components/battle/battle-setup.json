@@ -1,0 +1,152 @@
+{
+  "materials": [
+    {
+      "id": "quests",
+      "label": "From your quests",
+      "description": "Auto-pick questions from your active quests."
+    },
+    {
+      "id": "calculus",
+      "label": "Calculus",
+      "description": "Limits, derivatives, integrals."
+    },
+    {
+      "id": "data_structures",
+      "label": "Data Structures",
+      "description": "Arrays, stacks, queues, trees."
+    },
+    {
+      "id": "physics",
+      "label": "Physics",
+      "description": "Motion, forces, energy."
+    }
+  ],
+  "difficulties": [
+    { "id": "easy", "label": "Easy", "description": "More time, simpler distractors.", "eloMin": 0, "eloMax": 999 },
+    { "id": "medium", "label": "Medium", "description": "Balanced difficulty.", "eloMin": 1000, "eloMax": 1599 },
+    { "id": "hard", "label": "Hard", "description": "Less time, tougher questions.", "eloMin": 1600, "eloMax": 9999 }
+  ],
+  "opponents": [
+    { "id": "bot", "label": "Bot", "description": "Instant match (mock)." },
+    { "id": "random", "label": "Real player", "description": "Real vs real (mocked as bot)." },
+    { "id": "friend", "label": "Friend (Room)", "description": "Make/join room (mock)." }
+  ],
+  "rules": {
+    "questionCounts": [5, 10, 15],
+    "timePerQuestionSec": [0, 30, 60],
+    "hints": [true, false],
+    "reviewAfter": [true, false]
+  },
+  "modes": {
+    "ranked": {
+      "label": "Ranked 1v1",
+      "subtitle": "Real vs real (mocked as bot). Difficulty auto from ELO.",
+      "matchmaking": {
+        "type": "pvp_elo",
+        "realVsReal": true,
+        "mock": { "enabled": true, "fallbackOpponentId": "bot", "note": "UI mock: ranked queues fight a bot." }
+      },
+      "allowedOpponentIds": ["random"],
+      "defaults": {
+        "materialId": "quests",
+        "opponentId": "random",
+        "questionCount": 10,
+        "timePerQuestionSec": 60,
+        "hints": false,
+        "reviewAfter": false
+      },
+      "locks": {
+        "opponentId": true,
+        "difficultyId": "elo",
+        "questionCount": true,
+        "timePerQuestionSec": true,
+        "hints": true,
+        "reviewAfter": true
+      }
+    },
+    "casual": {
+      "label": "Quick Match",
+      "subtitle": "No rank loss. Pick your settings.",
+      "matchmaking": {
+        "type": "quick_match",
+        "realVsReal": false,
+        "mock": { "enabled": true, "fallbackOpponentId": "bot", "note": "UI mock only." }
+      },
+      "allowedOpponentIds": ["bot", "random"],
+      "defaults": {
+        "materialId": "quests",
+        "difficultyId": "medium",
+        "opponentId": "bot",
+        "questionCount": 10,
+        "timePerQuestionSec": 30,
+        "hints": false,
+        "reviewAfter": true
+      },
+      "locks": {}
+    },
+    "practice": {
+      "label": "Training",
+      "subtitle": "Practice drills. Hints + review allowed.",
+      "matchmaking": {
+        "type": "practice",
+        "realVsReal": false,
+        "mock": { "enabled": true, "fallbackOpponentId": "bot", "note": "UI mock only." }
+      },
+      "allowedOpponentIds": ["bot", "random"],
+      "defaults": {
+        "materialId": "quests",
+        "difficultyId": "easy",
+        "opponentId": "bot",
+        "questionCount": 10,
+        "timePerQuestionSec": 0,
+        "hints": true,
+        "reviewAfter": true
+      },
+      "locks": {}
+    },
+    "room_make": {
+      "label": "Make a Room",
+      "subtitle": "Create a room ID and share it (mock).",
+      "matchmaking": {
+        "type": "room_make",
+        "realVsReal": true,
+        "mock": { "enabled": true, "fallbackOpponentId": "bot", "note": "Room IDs are mock; no networking." }
+      },
+      "allowedOpponentIds": ["friend"],
+      "defaults": {
+        "materialId": "quests",
+        "difficultyId": "medium",
+        "opponentId": "friend",
+        "questionCount": 10,
+        "timePerQuestionSec": 30,
+        "hints": false,
+        "reviewAfter": true
+      },
+      "locks": { "opponentId": true }
+    },
+    "room_join": {
+      "label": "Join a Room",
+      "subtitle": "Enter a room ID to join (mock).",
+      "matchmaking": {
+        "type": "room_join",
+        "realVsReal": true,
+        "mock": { "enabled": true, "fallbackOpponentId": "bot", "note": "Room IDs are mock; no networking." }
+      },
+      "allowedOpponentIds": ["friend"],
+      "defaults": {
+        "materialId": "quests",
+        "difficultyId": "medium",
+        "opponentId": "friend",
+        "questionCount": 10,
+        "timePerQuestionSec": 30,
+        "hints": false,
+        "reviewAfter": true
+      },
+      "locks": { "opponentId": true }
+    }
+  },
+  "room": {
+    "idPrefix": "RM",
+    "idLength": 6
+  }
+}

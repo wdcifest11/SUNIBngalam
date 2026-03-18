@@ -1,0 +1,365 @@
+.strictWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  padding: 20px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .strictWrap {
+    animation: questIn 220ms ease-out both;
+  }
+
+  @keyframes questIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
+.backBtn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 60;
+  border-radius: 999px;
+  padding: 10px 14px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  background: rgb(0 0 0 / 0.26);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.center {
+  width: min(980px, 100%);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.timerCard {
+  border-radius: 28px;
+  padding: 22px;
+  background: rgb(var(--glass-tint) / 0.18);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  box-shadow: 0 30px 120px rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 6px));
+}
+
+.timerHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.timerPhase {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.timerMeta {
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.clockRow {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.clock {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(54px, 10vw, 92px);
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.96);
+  font-variant-numeric: tabular-nums;
+}
+
+.playBtn {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  background: rgb(0 0 0 / 0.26);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.progress {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.45);
+}
+
+.progressText {
+  flex: none;
+  min-width: 52px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.detailCard {
+  border-radius: 24px;
+  padding: 18px;
+  background: rgb(var(--glass-tint) / 0.14);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.detailTitle {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.goalList {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.goalItem {
+  width: 100%;
+  border-radius: 18px;
+  padding: 12px 12px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(0 0 0 / 0.22);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.goalItem[data-done="1"] {
+  opacity: 0.86;
+  border-color: rgb(255 255 255 / 0.18);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.goalCheck {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.goalDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.52);
+}
+
+.goalText {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.muted {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.nextRow {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nextLabel {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.nextValue {
+  font-weight: 800;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.54);
+}
+
+.confirmModal {
+  width: min(680px, 100%);
+  max-height: min(88vh, 640px);
+  overflow: auto;
+  border-radius: 22px;
+  background: rgba(20, 20, 24, 0.84);
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.36);
+  padding: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.confirmBody {
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.confirmKicker {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirmKicker i {
+  font-size: 14px;
+  color: rgba(232, 107, 107, 0.92);
+}
+
+.confirmTitle {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.confirmDetails {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.confirmLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.confirmLine i {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.confirmHint {
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.35;
+}
+
+.modalActions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modalBtn,
+.modalBtnDanger {
+  appearance: none;
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.modalBtnDanger {
+  border-color: rgba(232, 107, 107, 0.28);
+  background: rgba(232, 107, 107, 0.14);
+}
+
+@media (max-width: 860px) {
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+  .backBtn {
+    top: 14px;
+    left: 14px;
+  }
+}

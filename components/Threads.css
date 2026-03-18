@@ -1,0 +1,73 @@
+.reactbits-threads {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px circle at 30% 20%, var(--threads-bg), transparent 62%),
+    radial-gradient(1200px circle at 70% 60%, rgba(0, 0, 0, 0.18), transparent 62%);
+  filter: saturate(0.95) brightness(0.95);
+  opacity: 1;
+}
+
+.reactbits-threads::before,
+.reactbits-threads::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    repeating-linear-gradient(
+      12deg,
+      transparent 0px,
+      transparent 10px,
+      var(--threads-line) 11px,
+      transparent 12px,
+      transparent 22px
+    ),
+    repeating-linear-gradient(
+      -14deg,
+      transparent 0px,
+      transparent 12px,
+      var(--threads-line) 13px,
+      transparent 14px,
+      transparent 26px
+    );
+  mask-image: radial-gradient(900px circle at var(--threads-x, 35vw) var(--threads-y, 22vh), #000 0%, transparent 66%);
+  -webkit-mask-image: radial-gradient(900px circle at var(--threads-x, 35vw) var(--threads-y, 22vh), #000 0%, transparent 66%);
+  opacity: 0.9;
+  filter: blur(0.2px);
+  transform: translate3d(0, 0, 0);
+  animation: threads-drift 18s linear infinite;
+}
+
+.reactbits-threads::after {
+  inset: -26%;
+  background:
+    repeating-linear-gradient(
+      86deg,
+      transparent 0px,
+      transparent 18px,
+      var(--threads-warp) 19px,
+      transparent 20px,
+      transparent 36px
+    );
+  opacity: 0.75;
+  filter: blur(0.6px);
+  animation-duration: 26s;
+}
+
+@keyframes threads-drift {
+  from {
+    background-position: 0px 0px, 0px 0px;
+  }
+  to {
+    background-position: 520px 380px, -460px 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reactbits-threads::before,
+  .reactbits-threads::after {
+    animation: none;
+  }
+}
+

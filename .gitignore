@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.DS_Store
+*.log
+.npm-cache/
+data/*
+!data/app-data.json
+backup/
+*.tsbuildinfo
+lsremote.txt
+dev.pid

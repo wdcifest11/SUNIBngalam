@@ -1,0 +1,107 @@
+.root {
+  --cal-day-minh: clamp(40px, 7.4vw, 52px);
+  --cal-day-pad: clamp(7px, 1.8vw, 10px);
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.titleWrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.monthTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.calendar {
+  padding-bottom: 6px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.monthBtns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iconBtnSmall {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+}
+
+.ghostBtnSmall {
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.openBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.widgetDots {
+  gap: 0;
+  max-width: 12px;
+  overflow: hidden;
+}
+
+.widgetDot {
+  width: 5px;
+  height: 5px;
+  background: rgb(var(--glass-tint) / 0.72);
+}
+
+@media (max-width: 520px) {
+  .root {
+    height: auto;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .iconBtnSmall,
+  .openBtn {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+  }
+}

@@ -1,0 +1,89 @@
+﻿/* Boot sequence */
+.bootOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 1);
+}
+
+.bootOverlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0;
+  transition: opacity var(--boot-fade-ms, 5000ms) ease;
+}
+
+.booting .bootOverlay::before {
+  opacity: 1;
+}
+
+.bootOverlay.bootOverlay--reveal::before {
+  opacity: 0;
+}
+
+/* Prevent initial "grid flash" on Focus Mode entry: keep the overlay black until JS reveals it. */
+.shellRoot .bootOverlay::before {
+  opacity: 1;
+}
+
+.shellRoot .bootOverlay.bootOverlay--reveal::before {
+  opacity: 0;
+}
+
+.bootOverlay.bootOverlay--reveal {
+  background: transparent;
+}
+
+.bootLogo {
+  position: absolute;
+  top: 50%;
+  right: 14%;
+  transform: translateY(-50%) translateX(12px);
+  opacity: 0;
+  transition: opacity var(--boot-logo-ms, 1000ms) ease, transform var(--boot-logo-ms, 1000ms) ease;
+  text-align: right;
+}
+
+.bootLogo.bootLogo--show {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.bootLogo__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(44px, 10vw, 72px);
+  letter-spacing: clamp(0.06em, 1.5vw, 0.12em);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+}
+
+.bootLogo__tag {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: clamp(12px, 3.6vw, 14px);
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.bootOverlay.bootOverlay--hide {
+  opacity: 0;
+  transition: opacity var(--boot-hide-ms, 520ms) ease;
+}
+
+@media (max-width: 720px) {
+  .bootLogo {
+    left: 50%;
+    right: auto;
+    text-align: center;
+    transform: translate(-50%, -50%) translateY(0) translateX(12px);
+  }
+
+  .bootLogo.bootLogo--show {
+    transform: translate(-50%, -50%) translateY(0) translateX(0);
+  }
+}
+

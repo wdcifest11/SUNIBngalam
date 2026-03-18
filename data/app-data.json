@@ -1,0 +1,221 @@
+{
+  "profile": {
+    "displayName": "Putra",
+    "email": "putra@example.com",
+    "avatarUrl": "/blockyPng/profilePicture.png",
+    "xp": 5180,
+    "level": 12,
+    "battle": {
+      "elo": 1350,
+      "rank": "Silver II",
+      "winratePct": 62,
+      "battleXpDelta": 240
+    },
+    "streak": {
+      "freezeCount": 1,
+      "strikesCount": 0
+    }
+  },
+  "views": {
+    "dashboard": {
+      "label": "Dashboard",
+      "desc": "Your daily snapshot: routine, quests, streaks, and widgets."
+    },
+    "notes": {
+      "label": "Notes",
+      "desc": "Capture quick notes tied to your quests and sessions."
+    },
+    "quest": {
+      "label": "Quest",
+      "desc": "Pick quests, set difficulty, earn XP & streaks."
+    },
+    "schedules": {
+      "label": "Schedule",
+      "desc": "Agenda + deadlines that feed your routine."
+    },
+    "study": {
+      "label": "Study Room",
+      "desc": "Deep focus sessions with goals, timer, and recap."
+    },
+    "battle": {
+      "label": "Battle",
+      "desc": "1v1 quizzes from a question bank. Win, rank up, repeat."
+    },
+    "match": {
+      "label": "Options",
+      "desc": "Customize navigation, density, page tint, and utilities."
+    },
+    "guild": {
+      "label": "Guild",
+      "desc": "Co-focus rooms and accountability with your squad."
+    },
+    "pomodoro": {
+      "label": "Pomodoro",
+      "desc": "Timer + co-op focus sessions linked to tasks."
+    },
+    "routine": {
+      "label": "Routine",
+      "desc": "Now / Next / Later - turn deadlines into concrete steps."
+    }
+  },
+  "navigation": {
+    "items": [
+      { "id": "dashboard", "label": "Dashboard", "icon": "fa-gauge", "page": "dashboard", "href": "/dashboard", "focusKey": "nav.dashboard" },
+      { "id": "notes", "label": "Notes", "icon": "fa-note-sticky", "page": "notes", "href": "/notes", "focusKey": "nav.notes" },
+      { "id": "quest", "label": "Quest", "icon": "fa-map", "page": "quest", "href": "/quest", "focusKey": "nav.quest" },
+      { "id": "schedules", "label": "Schedule", "icon": "fa-calendar-days", "page": "schedules", "href": "/schedules", "focusKey": "nav.schedules" },
+      { "id": "study", "label": "Study Room", "icon": "fa-book-open", "page": "study", "href": "/study", "focusKey": "nav.study" },
+      { "id": "battle", "label": "Battle", "icon": "fa-fire", "page": "battle", "href": "/battle", "focusKey": "nav.battle" },
+      { "id": "match", "label": "Options", "icon": "fa-gear", "page": "match", "href": "/match", "focusKey": "nav.match" }
+    ],
+    "defaultOrder": ["dashboard", "notes", "quest", "schedules", "study", "battle", "match"]
+  },
+  "ui": {
+    "densityDefault": "comfort",
+    "notificationsDefaultEnabled": true,
+    "tintPresets": [
+      { "label": "Blue", "rgb": "90 155 255" },
+      { "label": "Aqua", "rgb": "95 230 255" },
+      { "label": "Purple", "rgb": "195 140 255" },
+      { "label": "Green", "rgb": "90 220 150" },
+      { "label": "Orange", "rgb": "255 170 90" },
+      { "label": "Red", "rgb": "255 110 110" },
+      { "label": "White", "rgb": "255 255 255" }
+    ]
+  },
+  "battle": {
+    "questRecommendations": [
+      { "title": "Mid Exam - Calculus", "meta": "Recommended: Ranked • +120 XP" },
+      { "title": "AOI Case Study - Data Structure", "meta": "Recommended: Practice • 10m" }
+    ],
+    "leaderboard": {
+      "selectedCampus": {
+        "university": "Bina Nusantara University Malang",
+        "major": "Computer Science",
+        "cohort": "B29"
+      },
+      "entries": [
+        { "id": "u1", "name": "Abyss", "xp": 6240, "elo": 1420, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u2", "name": "Putra", "xp": 5180, "elo": 1350, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u3", "name": "Nara", "xp": 4820, "elo": 1288, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u4", "name": "Raka", "xp": 4550, "elo": 1210, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u5", "name": "Salsa", "xp": 4390, "elo": 1194, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u6", "name": "Evan", "xp": 4010, "elo": 1162, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u7", "name": "Tara", "xp": 3860, "elo": 1120, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u8", "name": "Dio", "xp": 3690, "elo": 1096, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u9", "name": "Mika", "xp": 3520, "elo": 1065, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } },
+        { "id": "u10", "name": "Lyn", "xp": 3375, "elo": 1040, "campus": { "university": "Bina Nusantara University Malang", "major": "Computer Science", "cohort": "B29" } }
+      ]
+    }
+  },
+  "notes": {
+    "defaults": {
+      "tags": [
+        { "id": "school", "label": "School related", "dotClass": "notesDot--mint" },
+        { "id": "church", "label": "Church sermons", "dotClass": "notesDot--aqua" },
+        { "id": "movies", "label": "Movies & games", "dotClass": "notesDot--violet" },
+        { "id": "family", "label": "Family trip", "dotClass": "notesDot--gold" }
+      ],
+      "folders": [
+        { "id": "2026", "label": "2026" },
+        { "id": "2025", "label": "2025" }
+      ],
+      "seedNotes": [
+        {
+          "id": "limits",
+          "title": "Limits - cheat sheet",
+          "body": "Quick rules:\n- lim (x->0) sin x / x = 1\n- lim (x->0) (1 - cos x) / x^2 = 1/2\n\nTips:\n- rationalize when you see roots\n- use series for tough ones\n",
+          "bodyFormat": "plain",
+          "tags": ["school"],
+          "folder": "2026",
+          "favorite": false,
+          "pinned": false,
+          "sortOffsetMin": -2,
+          "createdOffsetMin": -12,
+          "updatedOffsetMin": -2
+        },
+        {
+          "id": "midterm",
+          "title": "Midterm roadmap",
+          "body": "Checklist:\n- Past papers (2)\n- Weak topics list\n- Daily 45m review block\n",
+          "bodyFormat": "plain",
+          "tags": ["school"],
+          "folder": "2026",
+          "favorite": true,
+          "pinned": true,
+          "sortOffsetMin": -45,
+          "createdOffsetMin": -600,
+          "updatedOffsetMin": -45
+        },
+        {
+          "id": "family",
+          "title": "Trip plan - packing list",
+          "body": "Packing:\n- Charger\n- Jacket\n- Snacks\n",
+          "bodyFormat": "plain",
+          "tags": ["family"],
+          "folder": "2026",
+          "favorite": false,
+          "pinned": false,
+          "sortOffsetMin": -1440,
+          "createdOffsetMin": -2880,
+          "updatedOffsetMin": -1440
+        }
+      ]
+    },
+    "grid": {
+      "cards": {
+        "leftTop": { "kicker": "Notes", "title": "Inbox", "meta": "Capture first, organize later" },
+        "tags": { "kicker": "Organize", "title": "Tags & folders", "meta": "Pinned | Subjects | Exams" },
+        "new": { "kicker": "Quick capture", "title": "New note", "meta": "Enter | Type | Save", "href": "/notes/new" },
+        "recent": [
+          { "kicker": "Recent", "title": "Limits - cheat sheet", "meta": "2m ago | Calculus" },
+          { "kicker": "Pinned", "title": "Midterm roadmap", "meta": "Checklist | 6 items" },
+          { "kicker": "Link", "title": "Attach to task", "meta": "1 due today | 3 open" },
+          { "kicker": "Review", "title": "Convert to flashcards", "meta": "12 cards | 1 deck" }
+        ],
+        "preview": { "kicker": "Editor", "title": "Preview", "meta": "Select a note to open" }
+      }
+    }
+  },
+  "guild": {
+    "grid": {
+      "cards": {
+        "leftTop": { "kicker": "Guild", "title": "Orbit Squad", "meta": "5 online | 2 co-focus rooms" },
+        "accountability": { "kicker": "Accountability", "title": "Nudges: On", "meta": "Leave-early check | Gentle reminders" },
+        "startRoom": { "kicker": "Co-focus", "title": "Start a room", "meta": "25m | 50m | Custom" },
+        "rooms": [
+          { "kicker": "Room", "title": "Calculus grind", "meta": "3 members | 18m left" },
+          { "kicker": "Room", "title": "Chem review", "meta": "2 members | starting soon" },
+          { "kicker": "Event", "title": "Guild vs Guild", "meta": "Tonight | 21:00" },
+          { "kicker": "Rank", "title": "Weekly XP", "meta": "#3 | +1,240 XP" }
+        ],
+        "chat": { "kicker": "Chat", "title": "Squad feed", "meta": "Mentions | Pings | Join links" }
+      }
+    }
+  },
+  "planner": {
+    "questStageTemplates": {
+      "assignment": [
+        "Break down requirements",
+        "Draft outline",
+        "Finish 25%",
+        "Finish 50%",
+        "Finish 75%",
+        "Finish 100%",
+        "Review & polish",
+        "Submit"
+      ],
+      "exam": [
+        "Collect materials & syllabus",
+        "Identify topics & weak areas",
+        "Study 25% topics",
+        "Study 50% topics",
+        "Study 75% topics",
+        "Practice questions",
+        "Mock test / past papers",
+        "Review mistakes"
+      ],
+      "routine": ["Start session", "Check-in", "Deep work", "Quick recap"]
+    }
+  }
+}

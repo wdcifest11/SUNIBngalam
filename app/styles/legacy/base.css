@@ -1,0 +1,277 @@
+﻿/* Legacy prototype styles (ported during migration). */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+:root {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  background: #000;
+  /* only hide horizontal overflow so vertical scrolling still works */
+  overflow-x: hidden;
+
+  --bg-hue: 0deg;
+  --glass-tint: 255 255 255;
+  --glass-alpha: 0.28;
+  --glass-alpha-strong: 0.36;
+  --glass-border-alpha: 0.32;
+  --glass-blur: 16px;
+
+  --text-strong: rgba(194, 194, 194, 0.92);
+  --text: rgba(255, 255, 255, 0.78);
+  --text-muted: rgba(151, 151, 151, 0.62);
+
+  /* Nav sizing (nav-mode default) */
+  --nav-bar-minh: 160px;
+  --carousel-width: 900px;
+  --carousel-pad-y: 16px;
+
+  --nav-item-w: 128px;
+  --nav-item-h: 112px;
+  --nav-radius: 20px;
+  --nav-base-scale: 0.86;
+  --nav-active-scale: 1.12;
+  --nav-icon-size: 30px;
+
+  --nav-label-opacity: 1;
+  --nav-label-maxh: 20px;
+  --nav-label-mt: 6px;
+  --nav-label-shift: 0px;
+}
+
+body.grid-mode {
+  --nav-bar-minh: 104px;
+  --carousel-width: 760px;
+  --carousel-pad-y: 10px;
+
+  --nav-item-w: 74px;
+  --nav-item-h: 74px;
+  --nav-radius: 18px;
+  --nav-base-scale: 0.92;
+  --nav-active-scale: 1.08;
+  --nav-icon-size: 26px;
+
+  --nav-label-opacity: 0;
+  --nav-label-maxh: 0px;
+  --nav-label-mt: 0px;
+  --nav-label-shift: -6px;
+}
+
+body[data-view="dashboard"] { --glass-tint: 90 155 255; }
+body[data-view="routine"] { --glass-tint: 184 130 82; }
+body[data-view="quest"] { --glass-tint: 90 220 150; }
+body[data-view="schedules"] { --glass-tint: 95 230 255; }
+body[data-view="notes"] { --glass-tint: 255 255 255; }
+body[data-view="study"] { --glass-tint: 255 170 90; }
+body[data-view="pomodoro"] { --glass-tint: 195 140 255; }
+body[data-view="battle"] { --glass-tint: 255 110 110; }
+body[data-view="guild"] { --glass-tint: 255 220 120; }
+body[data-view="match"] { --glass-tint: 255 255 255; }
+
+.clock {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-strong);
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  transition: filter 180ms ease;
+}
+
+.bg__floating-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  filter: brightness(0.98) saturate(0.9);
+  pointer-events: none;
+}
+
+.bg__floating-lines canvas {
+  filter: brightness(0.9);
+}
+
+.bg__threads {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  filter: saturate(0.95) brightness(0.95);
+  pointer-events: none;
+}
+
+.bg__waves {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  filter: saturate(0.98) brightness(0.98);
+  pointer-events: none;
+}
+
+/* Strict mode: full-screen overlay manages layout, so hide the shell chrome. */
+body[data-subview="study-room-strict"] .header,
+body[data-subview="study-room-strict"] .navbar,
+body[data-subview="study-room-strict"] .footerHUD,
+body[data-subview="study-room-strict"] .drawer,
+body[data-subview="study-room-strict"] .drawerOverlay {
+  display: none !important;
+}
+
+body.quest-detail .bg__threads {
+  background: radial-gradient(
+    1200px circle at 30% 20%,
+    rgb(var(--glass-tint) / 0.26),
+    rgb(0 0 0 / 0.18) 72%
+  );
+  filter: saturate(0.98) brightness(1);
+}
+
+/* Match: use the same "Quest open" threads vibe. */
+body[data-view="match"] .bg__threads {
+  isolation: isolate;
+}
+
+body[data-view="match"] .bg__threads::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      520px circle at 35vw 22vh,
+      rgb(var(--glass-tint) / 0.55),
+      transparent 62%
+    ),
+    radial-gradient(
+      900px circle at calc(35vw + 220px) calc(22vh + 160px),
+      rgb(var(--glass-tint) / 0.22),
+      transparent 64%
+    ),
+    radial-gradient(
+      1200px circle at 30% 20%,
+      rgb(var(--glass-tint) / 0.22),
+      rgb(0 0 0 / 0.20) 72%
+    );
+  filter: blur(24px) saturate(0.98) brightness(0.98);
+  opacity: 0.9;
+}
+
+body[data-view="match"] .bg__threads > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transition: opacity 320ms ease;
+  filter: saturate(1.15) contrast(1.05) hue-rotate(var(--bg-hue));
+}
+
+.bg__video--active {
+  opacity: 1;
+}
+
+body.no-video .bg__video {
+  opacity: 0 !important;
+}
+.bg__veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    1200px circle at 30% 20%,
+    rgb(var(--glass-tint) / 0.22),
+    rgb(0 0 0 / 0.55) 70%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 1;
+  transition: opacity 2000ms ease;
+}
+
+body.booting .bg__veil {
+  opacity: 0;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+/* When a popup is open, dim the background (not the shell UI). */
+body.modal-open .bg {
+  filter: brightness(0.68) saturate(0.9);
+}
+
+/* Responsive sizing (console shell) */
+@media (max-width: 900px) {
+  body {
+    --nav-bar-minh: 132px;
+    --carousel-width: 100%;
+    --carousel-pad-y: 12px;
+
+    --nav-item-w: 112px;
+    --nav-item-h: 100px;
+    --nav-radius: 18px;
+    --nav-icon-size: 26px;
+  }
+
+  body.grid-mode {
+    --nav-bar-minh: 92px;
+    --carousel-width: 100%;
+    --carousel-pad-y: 10px;
+
+    --nav-item-w: 66px;
+    --nav-item-h: 66px;
+    --nav-radius: 16px;
+    --nav-icon-size: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    --nav-bar-minh: 118px;
+    --nav-item-w: 100px;
+    --nav-item-h: 92px;
+    --nav-icon-size: 24px;
+  }
+
+  body.grid-mode {
+    --nav-bar-minh: 86px;
+    --nav-item-w: 62px;
+    --nav-item-h: 62px;
+    --nav-icon-size: 21px;
+  }
+}

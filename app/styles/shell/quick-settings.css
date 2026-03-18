@@ -1,0 +1,1203 @@
+/* Quick Settings UI inside the profile drawer (console-like). */
+
+.drawer {
+  width: min(420px, calc(100vw - 36px));
+}
+
+.drawerBody {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+  padding-right: 0;
+  overflow-x: hidden;
+}
+
+.drawerBody::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.qsPanel {
+  position: fixed;
+  top: 18px;
+  bottom: 18px;
+  left: calc(18px + min(420px, calc(100vw - 36px)) + 16px);
+  right: 18px;
+  width: auto;
+  max-width: 520px;
+  border-radius: 22px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  background: linear-gradient(180deg, rgba(10, 12, 18, 0.88), rgba(10, 12, 18, 0.76));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 0 1px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transform: translateX(30px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 320ms ease, opacity 320ms ease;
+  z-index: 85;
+}
+
+.qsPanel.qsPanel--open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.qsPanelTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.qsPanelTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+}
+
+.qsPanelTopRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qsPanelClose {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.qsPanelClose i {
+  font-size: 18px;
+}
+
+.qsMiniToggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.qsMiniToggleInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qsMiniSwitch {
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.qsMiniSwitch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.80);
+  transition: transform 220ms ease, background 220ms ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.qsMiniToggleInput:checked + .qsMiniSwitch {
+  background: rgba(105, 175, 255, 0.28);
+  border-color: rgba(105, 175, 255, 0.45);
+}
+
+.qsMiniToggleInput:checked + .qsMiniSwitch::after {
+  transform: translate(18px, -50%);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.qsPanelBody {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 2px;
+}
+
+.qsPanelCard {
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.qsPanelCardTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  letter-spacing: 0.15px;
+}
+
+.qsPanelCardSub {
+  margin-top: 8px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.qsQuestEmpty[hidden] {
+  display: none;
+}
+
+.qsQuestList:empty {
+  display: none;
+}
+
+.qsQuestList {
+  display: grid;
+  gap: 10px;
+}
+
+.qsScheduleList {
+  margin-top: 12px;
+}
+
+.qsScheduleCalendarList {
+  margin-top: 12px;
+}
+
+.qsNotesEmpty[hidden] {
+  display: none;
+}
+
+.qsQuestItem {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  border-radius: 18px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.qsQuestItem:hover {
+  filter: brightness(1.06);
+}
+
+.qsQuestItemMain {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.qsQuestItemTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+  letter-spacing: 0.15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsQuestItemMeta {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsQuestItemChevron {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.qsQuestItemChevron i {
+  font-size: 14px;
+}
+
+.qsBattleModeBar {
+  margin-top: 2px;
+}
+
+.qsBattleStatGrid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.qsBattleStat {
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+}
+
+.qsBattleStatLabel {
+  font-weight: 900;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.62);
+  letter-spacing: 0.12px;
+}
+
+.qsBattleStatValue {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.15px;
+}
+
+.qsBattleQuestList:empty {
+  display: none;
+}
+
+.qsBattleQuestEmpty[hidden] {
+  display: none;
+}
+
+.qsBattleQuestEmpty {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.qsBattleQuestList {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.qsBattleQuestItem {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  border-radius: 16px;
+  padding: 12px 12px;
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.qsBattleQuestItem:hover {
+  filter: brightness(1.06);
+}
+
+.qsBattleQuestItemTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsBattleQuestItemMeta {
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.62);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsBattleQuestItemChevron {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.qsBattleLbList {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.qsBattleLbRow {
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.qsBattleLbRank {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.90);
+  font-size: 12px;
+}
+
+.qsBattleLbMain {
+  min-width: 0;
+}
+
+.qsBattleLbName {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsBattleLbMeta {
+  margin-top: 3px;
+  font-weight: 800;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.60);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsBattleLbTag {
+  font-weight: 900;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.70);
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.qsPanelFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.qsPanelFooterBtn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.15px;
+  cursor: pointer;
+}
+
+.qsPanelFooterBtn--primary {
+  background: rgba(105, 175, 255, 0.26);
+  border-color: rgba(105, 175, 255, 0.44);
+}
+
+.qsPanelFooterBtn:hover {
+  filter: brightness(1.06);
+}
+
+.qsProfileTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.qsProfileTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+}
+
+.qsProfileTopRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qsProfileClose {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.qsProfileClose i {
+  font-size: 18px;
+}
+
+.qsProfileHero {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 12px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.qsProfileAvatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+}
+
+.qsProfileAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.qsProfileName {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 15px;
+  letter-spacing: 0.2px;
+}
+
+.qsProfileSub {
+  margin-top: 4px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 12px;
+}
+
+.qsProfileTabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 2px 0;
+}
+
+.qsProfileTab {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.15px;
+  line-height: 1;
+}
+
+.qsProfileTab[aria-selected="true"] {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.qsProfileBody {
+  flex: 1;
+  min-height: 0;
+  border-radius: 22px;
+  padding: 14px 14px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: grid;
+  grid-template: minmax(0, 1fr) / 1fr;
+  overflow: hidden;
+}
+
+.qsProfilePane {
+  grid-area: 1 / 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.qsProfilePane[hidden],
+.qsProfilePane[aria-hidden="true"] {
+  display: none !important;
+}
+
+.qsProfilePlaceholderTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+}
+
+.qsProfilePlaceholderSub {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.qsStreakPane {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.qsStreakHead {
+  display: grid;
+  gap: 3px;
+}
+
+.qsStreakTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+}
+
+.qsStreakSub {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.streakCal--qs,
+.streakMonth--qs {
+  --streak-cell: 14px;
+  --streak-gap: 6px;
+  padding: 6px 6px 0;
+}
+
+.qsProfileFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.qsProfileFooterBtn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.15px;
+  cursor: pointer;
+}
+
+.qsProfileFooterBtn--primary {
+  background: rgba(105, 175, 255, 0.26);
+  border-color: rgba(105, 175, 255, 0.44);
+}
+
+.qsProfileFooterBtn:hover {
+  filter: brightness(1.06);
+}
+
+.qsAccountRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.qsMenu {
+  display: grid;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.qsMenuBtn {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 46px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.drawerUser {
+  width: 100%;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.drawerUser:hover {
+  filter: brightness(1.06);
+}
+
+.drawerUserChevron {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.qsMenuBtn:hover {
+  filter: brightness(1.06);
+}
+
+.qsMenuIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.qsMenuIcon i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.qsMenuText {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.qsMenuTextWrap {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.qsMenuSub {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qsStudyStartBar {
+  margin-top: 2px;
+}
+
+.qsMenuPill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.1px;
+  color: rgba(255, 255, 255, 0.90);
+  background: rgba(105, 175, 255, 0.24);
+  border: 1px solid rgba(105, 175, 255, 0.42);
+}
+
+.qsMenuPill--off {
+  background: rgba(255, 86, 86, 0.22);
+  border-color: rgba(255, 160, 140, 0.48);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.qsMenuChevron {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.qsBottomRow {
+  display: grid;
+  grid-template-columns: 74px 74px 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.qsSquareBtn {
+  width: 100%;
+  height: 74px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.18);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.qsSquareBtn i {
+  font-size: 20px;
+}
+
+.qsExitBtn {
+  width: 100%;
+  height: 74px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(135deg, rgba(255, 86, 86, 0.75), rgba(255, 140, 120, 0.58));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  color: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.qsExitText {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.15px;
+  line-height: 1.05;
+}
+
+.qsExitIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.qsExitIcon i {
+  font-size: 18px;
+}
+
+.qsAdvanced {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.qsSection + .qsSection {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.qsCaption {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 10px;
+}
+
+.qsRow {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.qsIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.qsIcon i {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.qsValue {
+  min-width: 34px;
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.62);
+  font-variant-numeric: tabular-nums;
+}
+
+.qsRange {
+  width: 100%;
+  height: 18px;
+  accent-color: rgba(105, 175, 255, 0.92);
+}
+
+.qsToggleRow {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 8px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.qsToggleRow + .qsToggleRow {
+  margin-top: 10px;
+}
+
+.qsToggleLabel {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.qsToggleInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qsSwitch {
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.qsSwitch::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.86);
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.qsToggleRow:has(.qsToggleInput:checked) .qsSwitch {
+  background: rgba(105, 175, 255, 0.38);
+  border-color: rgba(105, 175, 255, 0.55);
+}
+
+.qsToggleRow:has(.qsToggleInput:checked) .qsSwitch::after {
+  transform: translate(18px, -50%);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.qsAudioBar {
+  margin-top: 0;
+  border-radius: 22px;
+  padding: 12px 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.qsPlayer {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.qsMusicIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: rgb(var(--glass-tint) / 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.92);
+  flex: 0 0 auto;
+  transform: scale(calc(1 + var(--qs-beat, 0) * 0.22));
+  transition: transform 70ms ease-out;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  position: relative;
+}
+
+.qsMusicIcon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.13), 0 0 40px rgba(255, 255, 255, 0.10);
+  opacity: calc(0.55 + var(--qs-beat, 0) * 0.55);
+  transition: opacity 120ms ease-out;
+}
+
+.qsMusicIcon i {
+  font-size: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.qsTrack {
+  min-width: 0;
+}
+
+.qsTrackTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qsTrackSub {
+  display: none;
+}
+
+.qsPlayerMain {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.qsPlayerControls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.qsPillBtn {
+  display: none;
+}
+
+.qsPillBtn i {
+  font-size: 14px;
+}
+
+.qsPillBtn--off {
+  opacity: 0.65;
+  filter: saturate(0.75);
+}
+
+.qsCtl {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.qsCtl i {
+  font-size: 16px;
+}
+
+.qsSeek {
+  width: 100%;
+  height: 14px;
+  accent-color: rgba(255, 255, 255, 0.92);
+  background: transparent;
+}
+
+.qsSeek::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.qsSeek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  margin-top: -3px;
+}
+
+.qsSeek::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.qsSeek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.qsMusicOnIcon,
+.qsMusicOffIcon {
+  position: absolute;
+  opacity: 0;
+}
+
+#toggleMusicBtn {
+  position: relative;
+}
+
+#toggleMusicBtn[aria-pressed="true"] .qsMusicOnIcon {
+  opacity: 1;
+  position: static;
+}
+
+#toggleMusicBtn[aria-pressed="false"] .qsMusicOffIcon {
+  opacity: 1;
+  position: static;
+}
+
+/* Background adjustments driven by quick settings vars. */
+.bg__video {
+  filter: brightness(var(--qs-bg-brightness, 1)) saturate(1.15) contrast(1.05) hue-rotate(var(--bg-hue));
+}
+
+.bg__veil {
+  opacity: var(--qs-veil-opacity, 1);
+}
+
+@media (max-width: 520px) {
+  .qsCaption {
+    font-size: 10px;
+  }
+  .qsMenuBtn {
+    grid-template-columns: 44px 1fr auto;
+    padding: 12px 12px;
+    border-radius: 16px;
+  }
+  .qsMenuIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 14px;
+  }
+  .qsMenuIcon i {
+    font-size: 16px;
+  }
+  .qsBottomRow {
+    grid-template-columns: 64px 64px 1fr;
+  }
+  .qsSquareBtn,
+  .qsExitBtn {
+    height: 64px;
+    border-radius: 16px;
+  }
+  .qsExitIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+  }
+  .qsRow {
+    grid-template-columns: 32px 1fr auto;
+  }
+  .qsIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+  }
+  .qsToggleRow {
+    padding: 10px 8px;
+  }
+  .qsAudioBar {
+    border-radius: 18px;
+    padding: 12px;
+  }
+  .qsMusicIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+  }
+  .qsCtl {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .qsPanel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: none;
+    border-radius: 0;
+    padding:
+      calc(14px + env(safe-area-inset-top, 0px))
+      14px
+      calc(14px + env(safe-area-inset-bottom, 0px))
+      14px;
+  }
+
+  body.qs-panel-open .drawer {
+    display: none !important;
+  }
+
+  body.qs-panel-open .drawerOverlay {
+    display: none !important;
+  }
+}
+

@@ -1,0 +1,99 @@
+.host {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.pill {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(560px, calc(100vw - 220px));
+  padding: 10px 14px;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateY(-6px) scale(0.96);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.pill[data-state="open"] {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.pill[data-state="closing"] {
+  transform: translateY(-8px) scale(0.97);
+  opacity: 0;
+}
+
+.ring {
+  position: absolute;
+  inset: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  pointer-events: none;
+}
+
+.ringPath {
+  stroke: rgba(34, 211, 238, 0.7);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 100 0;
+  animation: islandCountdown var(--island-duration, 3000ms) linear forwards;
+}
+
+.ringPathKindInfo {
+  stroke: rgba(34, 211, 238, 0.65);
+}
+.ringPathKindSuccess {
+  stroke: rgba(52, 211, 153, 0.65);
+}
+.ringPathKindWarning {
+  stroke: rgba(251, 191, 36, 0.7);
+}
+.ringPathKindDanger {
+  stroke: rgba(248, 113, 113, 0.7);
+}
+
+@keyframes islandCountdown {
+  from {
+    stroke-dasharray: 100 0;
+  }
+  to {
+    stroke-dasharray: 0 100;
+  }
+}
+
+@media (max-width: 720px) {
+  .pill {
+    max-width: calc(100vw - 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill {
+    transition: opacity 160ms ease;
+    transform: none;
+  }
+  .pill[data-state="open"] {
+    transform: none;
+  }
+  .pill[data-state="closing"] {
+    transform: none;
+  }
+  .ringPath {
+    animation: none;
+  }
+}

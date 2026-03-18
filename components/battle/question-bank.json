@@ -1,0 +1,84 @@
+[
+  {
+    "id": "calc_derivative_x2",
+    "materialId": "calculus",
+    "prompt": "The derivative of x² is…",
+    "options": ["2x", "x", "x²", "2"],
+    "correctIndex": 0,
+    "explanation": "Power rule: d/dx(x^n) = n·x^(n−1)."
+  },
+  {
+    "id": "calc_limit_sinx_x",
+    "materialId": "calculus",
+    "prompt": "lim(x→0) sin(x)/x equals…",
+    "options": ["0", "1", "∞", "Does not exist"],
+    "correctIndex": 1
+  },
+  {
+    "id": "calc_integral_2x",
+    "materialId": "calculus",
+    "prompt": "∫ 2x dx equals…",
+    "options": ["x² + C", "2x + C", "x + C", "2x² + C"],
+    "correctIndex": 0
+  },
+  {
+    "id": "ds_stack",
+    "materialId": "data_structures",
+    "prompt": "A stack follows which ordering?",
+    "options": ["FIFO", "LIFO", "Random access", "Priority-based"],
+    "correctIndex": 1
+  },
+  {
+    "id": "ds_queue",
+    "materialId": "data_structures",
+    "prompt": "A queue follows which ordering?",
+    "options": ["FIFO", "LIFO", "Depth-first", "Hash-based"],
+    "correctIndex": 0
+  },
+  {
+    "id": "ds_bst_rule",
+    "materialId": "data_structures",
+    "prompt": "In a Binary Search Tree, for any node…",
+    "options": [
+      "Left subtree keys are greater than the node key.",
+      "Right subtree keys are less than the node key.",
+      "Left subtree keys are less than the node key; right subtree keys are greater.",
+      "Both subtrees contain only equal keys."
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "phy_newton_1",
+    "materialId": "physics",
+    "prompt": "Which statement best describes Newton's First Law?",
+    "options": [
+      "Force equals mass times acceleration.",
+      "Every action has an equal and opposite reaction.",
+      "An object keeps its state of motion unless acted on by a net external force.",
+      "Energy cannot be created or destroyed."
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "phy_force_unit",
+    "materialId": "physics",
+    "prompt": "What is the SI unit of force?",
+    "options": ["Joule (J)", "Newton (N)", "Watt (W)", "Pascal (Pa)"],
+    "correctIndex": 1
+  },
+  {
+    "id": "phy_kinetic_energy",
+    "materialId": "physics",
+    "prompt": "Kinetic energy of an object is given by…",
+    "options": ["mgh", "½mv²", "F·d", "p/v"],
+    "correctIndex": 1
+  },
+  {
+    "id": "hist_westphalia",
+    "materialId": "physics",
+    "prompt": "Which treaty officially ended the Thirty Years' War in Europe in 1648?",
+    "options": ["Treaty of Versailles", "Peace of Westphalia", "Treaty of Utrecht", "Congress of Vienna"],
+    "correctIndex": 1
+  }
+]
+
